@@ -1,7 +1,9 @@
-FROM fedora:31
+FROM fedora:latest
 
 RUN dnf install -y \
-        texlive-scheme-full \
-        latexmk \
+        aspell \
+        aspell-* \
         git \
+        latexmk \
+        texlive-scheme-full \
     && dnf clean all
