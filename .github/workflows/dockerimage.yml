@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: 
+      - master
+    paths:
+      - 'Dockerfile'
+  schedule:
+    # Fedora releases new versions around the 1st of May and 1st of November,
+    # wait a month to include any possible delays and bugged releases.
+    - cron: '0 0 1 6,12 *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Publish to Docker Hub
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: mkaput/latex-fedora
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        snapshot: true
